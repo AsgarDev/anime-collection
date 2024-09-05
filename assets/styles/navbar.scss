@@ -1,0 +1,66 @@
+$primary-color: #282c34;
+$secondary-color: #61dafb;
+$text-color: #ffffff;
+$hover-text-color: #ffffff;
+$underline-color: #61dafb;
+$hover-underline-color: #61dafb;
+$transition-duration: 0.3s;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+}
+
+.navbar {
+  background-color: $primary-color;
+  padding: 1rem;
+
+  nav {
+    @include flex-center;
+    flex-direction: row;
+  }
+
+  a {
+    color: $text-color;
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    position: relative;
+    transition: color $transition-duration, background-color $transition-duration;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: $underline-color;
+      visibility: hidden;
+      transform: scaleX(0);
+      transition: all $transition-duration ease-in-out;
+    }
+
+    &:hover {
+      color: $hover-text-color;
+
+      &:before {
+        visibility: visible;
+        transform: scaleX(1);
+      }
+    }
+
+    &.active {
+      background-color: $secondary-color;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 
 # Anime Collection
-A Single Page Application about Anime world, built with Symfony and React.
+A SPA about Anime world, built with Symfony and React.
 
 ## Run Locally
 

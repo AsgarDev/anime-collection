@@ -36,11 +36,11 @@ class Anime
     #[Groups(['anime:read'])]
     private Collection $characters;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     #[Groups(['anime:read'])]
     private ?string $type = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Groups(['anime:read'])]
     private ?int $episodes = null;
 

@@ -61,13 +61,16 @@ export const getAnime = async (id) => {
     }
 };
 
-export const addAnime = async (formData) => {
-    const response = await apiClient.get('/animes', {
-        method: 'POST',
-        body: formData,
-    });
+export const addAnime = async (formData) => {  
+    try {
+        const response = await apiClient.post('/animes', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
 
-    if (!response.ok) {
+        return response.data;
+    } catch (error) {
         throw new Error('Erreur lors de l\'ajout de l\'anime');
     }
 };

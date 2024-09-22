@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { addAnime } from '../services/animeService';
 import Layout from '../components/Layout';
+import Banner from '../components/Banner';
+import '../styles/addAnime.scss';
 
 const AddAnime = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
+    const [notification, setNotification] = useState({ message: '', type: '' });
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -24,33 +27,45 @@ const AddAnime = () => {
 
         try {
             await addAnime(formData);
-            setTitle('');
-            setDescription('');
-            setImage(null);
+            setNotification({ message: 'Anime ajouté avec succès !', type: 'success' });
+            resetForm();
         } catch (error) {
-            console.error('Erreur lors de l\'ajout de l\'anime:', error);
+            setNotification({ message: "Erreur lors de l'ajout de l'anime.", type: 'error' });
         }
+    };
+
+    const resetForm = () => {
+        setTitle('');
+        setDescription('');
+        setImage(null);
     };
 
     return (
         <Layout title="Ajouter un Anime">
-            <form onSubmit={handleSubmit}>
+            <Banner
+                notification={notification}
+                onClose={() => setNotification({ message: '', type: '' })}
+            />
+            <form onSubmit={handleSubmit} className="add-anime-form">
                 <input 
                     type="text" 
                     value={title} 
                     onChange={(e) => setTitle(e.target.value)} 
-                    placeholder="Titre de l'anime" 
+                    placeholder="Titre de l'anime"
+                    className="form-input"
                 />
                 <textarea 
                     value={description} 
                     onChange={(e) => setDescription(e.target.value)} 
                     placeholder="Description de l'anime"
+                    className="form-textarea"
                 />
                 <input 
                     type="file" 
                     onChange={handleImageChange} 
+                    className="form-input"
                 />
-                <button type="submit">Ajouter</button>
+                <button type="submit" className="submit-button">Ajouter</button>
             </form>
         </Layout>
     );

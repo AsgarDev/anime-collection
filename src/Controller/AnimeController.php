@@ -37,10 +37,8 @@ class AnimeController extends AbstractController
 
         $title = $request->request->get('title');
         $description = $request->request->get('description');
-        $type = $request->request->get('type');
-        $episodes = $request->request->get('episodes');
-
-        if (!$title || !$description || !$type || !$episodes) {
+        
+        if (!$title || !$description) {
             throw new \Exception('Le titre et la description sont obligatoires.');
         }
 
@@ -48,8 +46,6 @@ class AnimeController extends AbstractController
         $anime->setTitle($title);
         $anime->setDescription($description);
         $anime->setImage($imagePath);
-        $anime->setType($type);
-        $anime->setEpisodes((int)$episodes);
 
         $em->persist($anime);
         $em->flush();

@@ -1,9 +1,3 @@
-#---Symfony-And-Docker-Makefile---------------#
-# Author: https://github.com/AsgarDev
-# License: MIT
-#---------------------------------------------#
-
-#---VARIABLES---------------------------------#
 #---DOCKER---#
 DOCKER = docker
 DOCKER_RUN = $(DOCKER) run
@@ -14,17 +8,17 @@ DOCKER_COMPOSE_BUILD = $(DOCKER_COMPOSE) build
 #------------#
 
 #---SYMFONY--#
-SYMFONY_CONSOLE = $(DOCKER) exec -it application php bin/console
+SYMFONY_CONSOLE = $(DOCKER) exec -it anime_collection_php php bin/console
 #------------#
 
 #---COMPOSER-#
-COMPOSER = $(DOCKER) exec -it application composer
+COMPOSER = $(DOCKER) exec -it anime_collection_php composer
 COMPOSER_INSTALL = $(COMPOSER) install
 COMPOSER_UPDATE = $(COMPOSER) update
 #------------#
 
 #---NPM-----#
-NPM = $(DOCKER) exec -it application npm
+NPM = $(DOCKER) exec -it anime_collection_php npm
 NPM_INSTALL = $(NPM) install --force
 NPM_UPDATE = $(NPM) update
 NPM_BUILD = $(NPM) run build
@@ -33,7 +27,7 @@ NPM_WATCH = $(NPM) run watch
 #------------#
 
 #---PHPUNIT-#
-PHPUNIT = $(DOCKER) exec -it application php bin/phpunit
+PHPUNIT = $(DOCKER) exec -it anime_collection_php php bin/phpunit
 #------------#
 #---------------------------------------------#
 
@@ -61,11 +55,11 @@ docker-build: ## Build docker containers.
 .PHONY: docker-build
 
 bash: ## Enter in container shell
-	$(DOCKER) exec -it application bash
+	$(DOCKER) exec -it anime_collection_php bash
 .PHONY: bash
 
 ip-database: ## Get the ip address of the database container.
-	$(DOCKER) inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' database
+	$(DOCKER) inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' anime_collection_database
 .PHONY: ip-database
 #---------------------------------------------#
 

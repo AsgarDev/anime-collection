@@ -1,15 +1,12 @@
 version: '3.8'
 services:
-    # PHP Service
     application:
         container_name: anime_collection_php
         build: 
             context: ./docker
             dockerfile: Dockerfile
-        ports:
-            - "9000:8000"
         working_dir: /var/www
-        command: "symfony server:start --port=8000 --dir=/var/www"
+        command: php-fpm
         volumes:
             - ./:/var/www
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
@@ -20,7 +17,7 @@ services:
         image: nginx:alpine
         container_name: anime_collection_nginx
         ports:
-            - "8080:80"
+            - "9000:80"
             - "444:443"
         volumes:
             - ./:/var/www/
